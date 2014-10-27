@@ -1,0 +1,15 @@
+somagic-easycap (1.1) precise; urgency=low
+
+  * Added support for 1c88:003f EasyCAP002 variant to somagic-init and 
+     somagic-capture. Closes: #10, #11.
+  * Added --skip-check option to somagic-init.
+  * Added -i, --cvbs-input EasyCAP002 options to somagic-capture.
+  * Added support for 1c88:003d EzCAP USB 2.0 to somagic-capture. Closes #8. 
+
+ -- Jeffry Johnston <somagic@kidsquid.com>  Sun, 10 Mar 2013 13:58:38 -0700
+
+somagic-easycap (1.0) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jeffry Johnston <somagic@kidsquid.com>  Fri, 24 Feb 2012 16:13:23 -0700

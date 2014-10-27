@@ -1,0 +1,42 @@
+.TH somagic-init "1" "February 2012" "somagic-init 1.1" "Somagic EasyCAP"
+.SH NAME
+somagic-init \- Upload firmware to initialize the Somagic EasyCAP DC60 or Somagic EasyCAP002
+.SH SYNOPSIS
+.B somagic-init
+[\fIOPTION\fR]...
+.SH DESCRIPTION
+.PP
+Uploads the firmware for the Somagic chip, and reconnects the USB dongle with a new product ID.
+This program must be run as root in order to interact with the USB capture device directly.
+.SH OPTIONS
+.TP
+\fB\-f\fR, \fB\-\-firmware\fR=\fIFILENAME\fR
+Use \fIFILENAME\fR for firmware.
+The default filename is "/lib/firmware/somagic_firmware.bin".
+.TP
+\fB\-\-help\fR
+Print program usage and example.
+.TP
+\fB\-\-skip-check\fR
+To detect corrupt or incorrect firmware, the checksum of the firmware is normally compared against a list of checksums for known good firmware files.
+Setting this option skips the validation check.
+.TP
+\fB\-\-version\fR
+Print the program version, the program copyright, a list of authors, and a notice that there is no warranty.
+.SH "EXIT STATUS"
+The program exits with a status of zero on success.
+A status of one will be returned if any errors were encountered.
+.SH "SEE ALSO"
+\fBsomagic-extract-firmware\fR(1), \fBsomagic-capture\fR(1)
+.SH "REPORTING BUGS"
+Report bugs to the easycap-somagic-linux project on Google Project Hosting:
+<http://code.google.com/p/easycap\-somagic\-linux/issues/list>
+.SH AUTHOR
+This manual page was written by Jeffry Johnston <somagic@kidsquid.com>.
+.SH "COPYRIGHT"
+Copyright \(co 2011, 2012 Tony Brown, Jeffry Johnston.
+License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+

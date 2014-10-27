@@ -1,0 +1,43 @@
+.TH somagic-extract-firmware "1" "March 2013" "somagic-extract-firmware 1.1" "Somagic EasyCAP"
+.SH NAME
+somagic-extract-firmware \- Extract the Somagic EasyCAP DC60 or Somagic EasyCAP002 firmware from a Windows driver file
+.SH SYNOPSIS
+.B somagic-init
+[\fIOPTION\fR]... [\fIDRIVER_FILENAME\fR]
+.SH DESCRIPTION
+.PP
+Extracts the firmware for the Somagic EasyCAP from the Windows driver file named \fIDRIVER_FILENAME\fR, verifies its CRC32 signature, and writes it to a file.
+
+Before running this program, use Wine or Windows to run "Setup.exe", which should be found in the "Drivers" directory of the EasyCAP installation CD.
+This should create a driver file named either "SmiUsbGrabber3C.sys" or "SmiUsbGrabber3C.sys", located in either the "Program Files/Common Files/Somagic/SmiUsbGrabber3C/xp/" or "Program Files/Common Files/Somagic/SmiUsbGrabber3E/xp/" directory.
+.SH OPTIONS
+.TP
+\fB\-f\fR, \fB\-\-firmware\fR=\fIFILENAME\fR
+Write to firmware file \fIFILENAME\fR.
+The default filename is "/lib/firmware/somagic_firmware.bin".
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+Selects verbose output.
+.TP
+\fB\-\-help\fR
+Print program usage and example.
+.TP
+\fB\-\-version\fR
+Print the program version, the program copyright, a list of authors, and a notice that there is no warranty.
+.SH "EXIT STATUS"
+The program exits with a status of zero on success.
+A status of one will be returned if any errors were encountered.
+.SH "SEE ALSO"
+\fBsomagic-init\fR(1), \fBsomagic-capture\fR(1)
+.SH "REPORTING BUGS"
+Report bugs to the easycap-somagic-linux project on Google Project Hosting:
+<http://code.google.com/p/easycap\-somagic\-linux/issues/list>
+.SH AUTHOR
+This manual page was written by Jeffry Johnston <somagic@kidsquid.com>.
+.SH "COPYRIGHT"
+Copyright \(co 2011-2013 Jeffry Johnston.
+License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+

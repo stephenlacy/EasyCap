@@ -1,0 +1,11 @@
+somagic-easycap-tools (1.1) precise; urgency=low
+
+  * Added --verbose option.
+
+ -- Jeffry Johnston <somagic@kidsquid.com>  Sun, 10 Mar 2013 13:51:46 -0700
+
+somagic-easycap-tools (1.0) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jeffry Johnston <somagic@kidsquid.com>  Fri, 24 Feb 2012 16:13:23 -0700

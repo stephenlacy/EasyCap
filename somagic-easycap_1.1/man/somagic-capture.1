@@ -1,0 +1,274 @@
+.TH somagic-capture "1" "March 2013" "somagic-capture 1.1" "Somagic EasyCAP"
+.SH NAME
+somagic-capture \- Perform video capture with the Somagic EasyCAP DC60, Somagic EasyCAP002, or EzCAP USB 2.0
+.SH SYNOPSIS
+.B somagic-capture
+[\fIOPTION\fR]...
+.SH DESCRIPTION
+.PP
+Initializes the Somagic EasyCAP DC60, Somagic EasyCAP002, or EzCAP ESB 2.0 registers and performs video capture.
+This program must be run as root in order to interact with the USB capture device directly.
+.SH OPTIONS
+.TP
+\fB\-B\fR, \fB\-\-brightness\fR=\fIVALUE\fR
+Luminance brightness control.
+The brightness \fIVALUE\fR must be between 0 and 255, inclusive.
+The default brightness is 128, which selects the ITU level.
+.TS
+allbox tab(;);
+c c
+n l.
+\f(BIVALUE\fR;\fBBrightness\fR
+255;Bright
+149;NTSC-J
+128;ITU level
+0;Dark
+.TE
+
+.TP
+\fB\-C\fR, \fB\-\-contrast\fR=\fIVALUE\fR
+Luminance contrast control.
+The contrast \fIVALUE\fR must be between -128 and 127, inclusive.
+The default contrast is 71, which selects the ITU level.
+.TS
+allbox tab(;);
+c c s
+n n l.
+\f(BIVALUE\fR;\fBContrast\fR
+127;1.984375
+72;1.125000;NTSC-J
+71;1.109375;ITU level
+64;1.000000
+1;0.015625
+0;0.000000;Luminance off
+-64;-1.000000;Inverse luminance
+-128;-2.000000;Inverse luminance
+.TE
+
+.TP
+\fB\-c\fR, \fB\-\-cvbs\fR
+For the EasyCAP DC60 or EzCAP USB 2.0, use the CVBS (composite) input for video capture.
+For the EasyCAP002, use the numbered inputs for video capture. Different devices seem to have different numbering schemes, so try each input in turn to determine which one is correct. 
+This is the default.
+.TP
+\fB\-i\fR, \fB\-\-cvbs\-input\fR=\fIVALUE\fR
+For the EasyCAP002 only. Select the numbered input to use.
+Different devices seem to have different numbering schemes, so the numbering may not match your device. Try each input in turn to determine which one is correct. 
+The default input is 3.
+.TP
+\fB\-f\fR, \fB\-\-frames\fR=\fICOUNT\fR
+Maximum number of video frames to capture.
+The default is -1, which allows unlimited frames.
+.TP
+\fB\-\-help\fR
+Print program usage and examples.
+.TP
+\fB\-H\fR, \fB\-\-hue\fR=\fIVALUE\fR
+Hue phase in degrees.
+The hue \fIVALUE\fR must be between -128 and 127, inclusive.
+The default hue is 0.
+.TS
+allbox tab(;);
+c c
+n n.
+\f(BIVALUE\fR;\fBPhase\fR
+-128;-180.00000\(de
+0;0.00000\(de
+1;1.40635\(de
+127;178.59375\(de
+.TE
+
+.TP
+\fB\-\-iso-transfers\fR=\fICOUNT\fR
+Number of concurrent iso transfers.
+Selecting a higher value might help alleviate sync artifacts.
+The default is 4.
+.TP
+\fB\-\-lum-aperture\fR=\fIMODE\fR
+Luminance aperture factor.
+The aperture factor \fIMODE\fR must be between 0 and 3, inclusive.
+Increasing this value can increase perceived sharpness.
+The default aperture factor is 1.
+.TS
+allbox tab(;);
+c c
+n n.
+\f(BIMODE\fR;\fBAperture Factor\fR
+0;0.00
+1;0.25
+2;0.50
+3;1.00
+.TE
+
+.TP
+\fB\-\-lum-prefilter\fR
+Activate the luminance prefilter.
+This is bypassed (not active) by default.
+.TP
+\fB\-\-luminance\fR=\fIMODE\fR
+Luminance mode for the CVBS video input, selecting a center frequency in MHz.
+Does not apply to the S-VIDEO video input.
+The \fIMODE\fR must be between 0 and 3, inclusive.
+Decreasing the MHz value can increase perceived sharpness.
+The default is 0.
+.TS
+allbox tab(;);
+c c
+n n.
+\f(BIMODE\fR;\fBCenter Frequency\fR
+0;4.1 MHz
+1;3.8 MHz
+2;2.6 MHz
+3;2.9 MHz
+.TE
+
+.TP
+\fB\-n\fR, \fB\-\-ntsc\fR
+Decode the NTSC-M video standard, which is used in North America.
+To decode the NTSC-J video standard, which is used in Japan, select \-n along with \-B 147 and \-C 72.
+The internal vertical resolution is 525 lines. The output resolution is 720x480, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is approximately 29.97 Hz, or 30/1.001 Hz exactly.
+.TP
+\fB\-\-ntsc\-4.43\-50\fR
+Decode the NTSC-4.43 50 Hz video standard.
+The internal vertical resolution is 525 lines. The output resolution is 720x480, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is 25 Hz exactly.
+.TP
+\fB\-\-ntsc\-4.43\-60\fR
+Decode the NTSC-4.43 60 Hz video standard.
+The internal vertical resolution is 525 lines. The output resolution is 720x480, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is approximately 29.97 Hz, or 30/1.001 Hz exactly.
+.TP
+\fB\-\-ntsc\-n\fR
+Decode the NTSC-N video standard.
+The internal vertical resolution is 625 lines. The output resolution is 720x576, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is 25 Hz exactly.
+.TP
+\fB\-p\fR, \fB\-\-pal\fR
+Decode any of the PAL-B, PAL-G, PAL-H, PAL-I, or PAL-N video standards, which are used in many regions.
+The internal vertical resolution is 625 lines. The output resolution is 720x576, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is 25 Hz exactly.
+This is the default.
+.TP
+\fB\-\-pal\-4.43\fR
+Decode the PAL-4.43 video standard, also commonly known as PAL 60.
+The internal vertical resolution is 525 lines. The output resolution is 720x480, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is approximately 29.97 Hz, or 30/1.001 Hz exactly.
+.TP
+\fB\-\-pal\-m\fR
+Decode the PAL-M video standard, which is used in Brazil.
+The internal vertical resolution is 525 lines. The output resolution is 720x480, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is approximately 29.97 Hz, or 30/1.001 Hz exactly.
+.TP
+\fB\-\-pal\-combination\-n\fR
+Decode the PAL Combination-N video standard.
+The internal vertical resolution is 625 lines. The output resolution is 720x576, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is 25 Hz exactly.
+.TP
+\fB\-C\fR, \fB\-\-contrast\fR=\fIVALUE\fR
+Chrominance saturation control.
+The saturation \fIVALUE\fR must be between -128 and 127, inclusive.
+The default saturation is 64, which selects the ITU level.
+.TS
+allbox tab(;);
+c c s
+n n l.
+\f(BIVALUE\fR;\fBSaturation\fR
+127;1.984375
+64;1.000000;ITU level
+1;0.015625
+0;0.000000;Color off
+-64;-1.000000;Inverse chrominance
+-128;-2.000000;Inverse chrominance
+.TE
+
+.TP
+\fB\-s\fR, \fB\-\-s\-video\fR
+Use the S-VIDEO input for video capture. Only available on EasyCAP DC60 and EzCAP USB 2.0.
+.TP
+\fB\-\-secam\fR
+Decode the SECAM video standard.
+The internal vertical resolution is 625 lines. The output resolution is 720x576, which should be scaled to 720x540 for the correct aspect ratio of 4:3.
+The output framerate is 25 Hz exactly.
+.TP
+\fB\-\-sync\fR=\fIVALUE\fR
+Sync algorithm. Selects the method used to decode the video and control information into frames of video.
+The sync \fIVALUE\fR must be either 1 or 2.
+The default is 2.
+.TS
+allbox tab(;);
+c c
+n l.
+\f(BIVALUE\fR;\fBAlgorithm\fR
+1;TB
+2;MD
+.TE
+
+.TP
+\fB\-\-test\-only\fR
+Parses command-line options and performs capture setup, but does not initiate capture.
+The purpose of this option is to allow scripts to determine whether capture should be possible.
+.TP
+\fB\-\-vo\fR=\fIFILENAME\fR
+Select a file (or pipe) to output raw UYVY video frames to.
+The default is to output video to standard output rather than a file.
+.TP
+\fB\-\-version\fR
+Print the program version, the program copyright, a list of authors, and a notice that there is no warranty.
+.SH "EXIT STATUS"
+The program exits with a status of zero on success.
+A status of one will be returned if any errors were encountered.
+.SH EXAMPLES
+.PP
+.B Play PAL video from CVBS/composite input
+.nf
+somagic-capture | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "pal:format=uyvy:fps=25" -aspect 4:3 -
+.fi
+.PP
+.B Play PAL video from S-VIDEO input
+.nf
+somagic-capture -s | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "pal:format=uyvy:fps=25" -aspect 4:3 -
+.fi
+.PP
+.B Play PAL video from CVBS/composite with increased sharpness
+.nf
+somagic-capture --luminance=2 --lum-aperture=3 | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "pal:format=uyvy:fps=25" -aspect 4:3 -
+.fi
+.PP
+.B Play NTSC video from CVBS/composite input
+.nf
+somagic-capture -n | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=30000/1001" -aspect 4:3 -
+.PP
+.B Play NTSC video from S-VIDEO input
+.nf
+somagic-capture -n -s | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=30000/1001" -aspect 4:3 -
+.fi
+.PP
+.B Play NTSC video from CVBS/composite input with increased sharpness
+.nf
+somagic-capture -n --luminance=2 --lum-aperture=3 | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=30000/1001" -aspect 4:3 -
+.fi
+.PP
+.B Play NTSC video from CVBS/composite input with increased sharpness, using alternate sync algorithm
+.nf
+somagic-capture -n --luminance=2 --lum-aperture=3 --sync=1 | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=30000/1001" -aspect 4:3 -
+.fi
+.PP
+.B Play SECAM video from CVBS/composite input
+.nf
+somagic-capture --secam | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "pal:format=uyvy:fps=25" -aspect 4:3 -
+.fi
+.SH "SEE ALSO"
+\fBsomagic-extract-firmware\fR(1), \fBsomagic-init\fR(1)
+.SH "REPORTING BUGS"
+Report bugs to the easycap-somagic-linux project on Google Project Hosting:
+<http://code.google.com/p/easycap\-somagic\-linux/issues/list>
+.SH AUTHOR
+This manual page was written by Jeffry Johnston <somagic@kidsquid.com>.
+.SH "COPYRIGHT"
+Copyright \(co 2011-2013 Tony Brown, Michal Demin, Jeffry Johnston, Jon Arne Jørgensen.
+License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
