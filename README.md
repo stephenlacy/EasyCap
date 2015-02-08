@@ -8,6 +8,8 @@
 
 #### dirver lib
 
+x86_64 Linux
+
 `sudo cp ./somagic_firmware.bin /lib/firmware/somagic_firmware.bin`
 
 
