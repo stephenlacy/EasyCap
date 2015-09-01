@@ -2,7 +2,7 @@
 
 > EasyCap driver for linux
 
-
+Most of the documentation for the EasyCap devices are fragmented, incomplete, or old. This is an attempt to bring the software/firmware together for Linux systems.
 
 ### Install
 
@@ -28,7 +28,7 @@ x86_64 Linux
 ### Run
 `sudo somagic-capture -n | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=30000/1001" -aspect 4:3 -`
 
-Eject and insert easycap usb device and run step Init as required on new stream start.
+Eject and insert your easycap usb device, then run step Init as required on each video stream start.
 
 
 ### Alternative useage 
