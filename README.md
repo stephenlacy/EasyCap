@@ -11,12 +11,12 @@ Most of the documentation for the EasyCap devices are fragmented, incomplete, or
 
 #### dirver lib
 
-x86_64 Linux
+x86_64 Linux (Debian)
 
 `sudo cp ./somagic_firmware.bin /lib/firmware/somagic_firmware.bin`
 
 
-#### somagic tools
+#### somagic tools (Debain)
 `cd somagic-easycap_1.1`
 `make`
 `sudo make install`
@@ -31,7 +31,7 @@ x86_64 Linux
 Eject and insert your easycap usb device, then run step Init as required on each video stream start.
 
 
-### Alternative useage 
+### Alternative useage
 (Linux x86_64, git clone without compiling)
 
 `cd somagic-easycap_1.1`
