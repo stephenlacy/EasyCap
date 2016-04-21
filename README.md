@@ -16,7 +16,7 @@ x86_64 Linux (Debian)
 `sudo cp ./somagic_firmware.bin /lib/firmware/somagic_firmware.bin`
 
 
-#### somagic tools (Debain)
+#### somagic tools (Debian)
 `cd somagic-easycap_1.1`
 `make`
 `sudo make install`
