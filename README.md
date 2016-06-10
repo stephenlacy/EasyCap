@@ -42,3 +42,6 @@ Eject and insert your easycap usb device, then run step Init as required on each
 ### Run
 `sudo ./somagic-capture -n | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=30000/1001" -aspect 4:3 -`
 
+
+### man pages
+[http://rpm.pbone.net/index.php3/stat/45/idpl/30505005/numer/1/nazwa/somagic-capture](http://rpm.pbone.net/index.php3/stat/45/idpl/30505005/numer/1/nazwa/somagic-capture)
