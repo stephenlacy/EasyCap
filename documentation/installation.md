@@ -28,16 +28,20 @@ cd somagic-easycap_1.1
 make
 sudo make install
 
+```
+If you wish to install the beta version:
+
+```
 make beta
 sudo make install-beta
 ```
 
 Results
 -------
-Now, you have installed : 
+Now, you have installed:
 * somagic-init
 * somagic-capture
 * somagic-audio-capture
 * somagic-both
 
-Please see [how to use](usage.md) the tools now
+Please read the [useage guide](usage.md) for detailed instructions.

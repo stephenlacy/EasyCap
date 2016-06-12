@@ -5,14 +5,14 @@ Command description
 -------------------
 
 
-Please [install](installation.md) the tools before trying to use it.
+Please [install](installation.md) the tools before using them.
 
 * **somagic-init**.
 Load the firmware and will try to connect to the easycap device
 * **somagic-capture**.
-Record video, output the raw stream in stdout 
+Record video, output the raw stream in stdout
 * **somagic-audio-capture**.
-Record audio, output the raw stream in stdout 
+Record audio, output the raw stream in stdout
 * **somagic-both**.
 Record video and audio, output the video in stdout and the audio in stderr
 
@@ -23,15 +23,15 @@ man somagic-capture
 ```
 
 
-Live visualisation of the video
+Live visualization of the video
 -------------------------------
 
-dependencies
+Dependencies
 * mplayer
 
 ###### PAL format
 ```bash
-#kill every process lost (could be usefull if the script is killed)
+# kill untracked zombie processes (could be usefull if the script is killed)
 sudo killall -9 somagic-capture
 
 # init the somagic driver
@@ -42,7 +42,7 @@ sudo somagic-capture | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo 
 
 ###### NTSC format
 ```bash
-#kill every process lost (could be usefull if the script is killed)
+# kill untracked zombie processes (could be usefull if the script is killed)
 sudo killall -9 somagic-capture
 
 # init the somagic driver
@@ -54,7 +54,7 @@ sudo somagic-capture -n | mplayer -vf yadif,screenshot -demuxer rawvideo -rawvid
 
 ###### SECAM format
 ```bash
-#kill every process lost (could be usefull if the script is killed)
+# kill untracked zombie processes (could be usefull if the script is killed)
 sudo killall -9 somagic-capture
 
 # init the somagic driver
@@ -67,16 +67,15 @@ sudo somagic-capture --secam | mplayer -vf yadif,screenshot -demuxer rawvideo -r
 Record video and audio.
 ---------------------------------------
 
-This section is a cookbook. Feel free to add yours solutions !
+This section is a cookbook. Feel free to add yours solutions!
 
-dependencies:
+Dependencies:
 * libav-tools (avconv)
 * moreutils   (buffer)
 
 ###### Secam format
 
 ``` bash
-# kill every process lost (could be usefull if the script is restarted)
 sudo killall -9 somagic-both
 sudo killall -9 somagic-capture
 
