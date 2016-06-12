@@ -99,7 +99,7 @@ avconv \
 -f s16le -sample_rate 24000 -ac 2 -i .audio_buffer -strict experimental \
 -vcodec mpeg4 -vtag xvid -qscale:v 7 \
 -vf yadif -s:v 720x540 \
-"/data/Video/${video_name}.avi"
+video.avi
 
 # now, type ctrl-c to stop the encoding
 # you can then kill somagic-both
