@@ -134,6 +134,10 @@ static int num_iso_transfers = 4;
 /* Test-only mode (no capture): 0 = capture, 1 = test-only */
 static int test_only = 0;
 
+/* devicenumber - default 1 = first useable device from lsusb list */
+static int devicenumber = 1;
+
+
 static void release_usb_device(int ret)
 {
 	fprintf(stderr, "Emergency exit\n");
@@ -153,13 +157,17 @@ static struct libusb_device *find_device(int vendor, int product)
 	struct libusb_device_descriptor descriptor;
 	struct libusb_device *item;
 	int i;
+	int ifound=0;
 	ssize_t count;
 	count = libusb_get_device_list(NULL, &list);
 	for (i = 0; i < count; i++) {
 		item = list[i];
 		libusb_get_device_descriptor(item, &descriptor);
 		if (descriptor.idVendor == vendor && descriptor.idProduct == product) {
-			dev = item;
+			ifound++;
+			if (ifound == devicenumber) {
+				dev = item;
+			}
 		} else {
 			libusb_unref_device(item);
 		}
@@ -1200,6 +1208,8 @@ static void usage()
 	fprintf(stderr, "      --test-only            Perform capture setup, but do not capture\n");
 	fprintf(stderr, "      --vo=FILENAME          Raw UYVY video output file (or pipe) filename\n");
 	fprintf(stderr, "                             (default is standard output)\n");
+  fprintf(stderr, "  -d, --devicenumber=1       number of useable device, default is the first\n");
+	fprintf(stderr, "                             useable (for multiple devices)\n");
 	fprintf(stderr, "      --help                 Display usage\n");
 	fprintf(stderr, "      --version              Display version information\n");
 	fprintf(stderr, "\n");
@@ -1245,11 +1255,12 @@ static int parse_cmdline(int argc, char **argv) {
 		{"pal", 0, 0, 'p'},
 		{"s-video", 0, 0, 's'},
 		{"saturation", 1, 0, 'S'},
+		{"devicenumber", 1, 0, 'd'},
 		{0, 0, 0, 0}
 	};
 
 	while (1) {
-		c = getopt_long(argc, argv, "B:cC:f:H:i:npsS:", long_options, &option_index);
+		c = getopt_long(argc, argv, "B:cC:f:H:i:npsSd:", long_options, &option_index);
 		if (c == -1) {
 			break;
 		}
@@ -1395,6 +1406,14 @@ static int parse_cmdline(int argc, char **argv) {
 				return 1;
 			}
 			saturation = (int8_t)i;
+			break;
+		case 'd':
+			i = atoi(optarg);
+			if (i < 1 || i > 127) {
+				fprintf(stderr, "Invalid device number value '%i', must be from 1 to 127\n", i);
+				return 1;
+			}
+			devicenumber = (int)i;
 			break;
 		default:
 			usage();
