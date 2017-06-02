@@ -116,8 +116,11 @@ sudo somagic-both -n 2>.audio | avconv \
 -vf yadif -s:v 720x540 \
 -f avi .video
 
+# the command above will output the converted video to .video 
+# and the raw audio to .audio
 # type ctrl+c to finish capturing and converting
-# merge raw audio to video
+
+# you can then merge raw audio to converted video typing:
 
 avconv \
 -f avi -i .video \
