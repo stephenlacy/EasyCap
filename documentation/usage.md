@@ -103,3 +103,31 @@ video.avi
 # now, type ctrl-c to stop the encoding
 # you can then kill somagic-both
 ```
+
+###### Convert while capturing (NTSC)
+
+``` bash
+sudo killall -9 somagic-both
+sudo somagic-init
+rm .audio .video video.avi
+sudo somagic-both -n 2>.audio | avconv \
+-f rawvideo -pix_fmt uyvy422 -r 30 -s:v 720x480 -i pipe:0 \
+-vcodec mpeg4 -vtag xvid -qscale:v 7 \
+-vf yadif -s:v 720x540 \
+-f avi .video
+
+# type ctrl+c to finish capturing and converting
+# merge raw audio to video
+
+avconv \
+-f avi -i .video \
+-f s16le -sample_rate 24000 -ac 2 -i .audio -strict experimental \
+-vcodec mpeg4 -vtag xvid -qscale:v 7 \
+-vf yadif -s:v 720x540 \
+-f avi video.avi
+
+```
+
+
+
+
