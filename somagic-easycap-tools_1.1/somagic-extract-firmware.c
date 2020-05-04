@@ -32,7 +32,7 @@
 
 /* Constants */
 #define PROGRAM_NAME "somagic-extract-firmware"
-#define VERSION "1.1"
+#define VERSION "1.2"
 #define SOMAGIC_FIRMWARE_PATH "/lib/firmware/somagic_firmware.bin"
 
 /*
@@ -41,6 +41,7 @@
  *     0  SmiUsbGrabber3C.sys, EasyCAP DC60
  *     1  SmiUsbGrabber3E.sys, EasyCAP002
  *     2  SmiUsbGrabber3F.sys, EasyCAP002
+ *     3  SmiUsbGrabber3C.sys, ezcap USB2.0 Video Capture ver36.1
  */
 
 /*
@@ -60,21 +61,25 @@
  * xp/SmiUsbGrabber3F.sys        109568  1c88:003f    107      6634      0x10b28 0x12508 0x13ee8 0x158c8  6624
  * xp/SmiUsbGrabber3F.sys        147328  1c88:003f    107      6634      0x18570 0x19f50 0x1b930 0x1d310  6624
  */
-#define PRODUCT_COUNT 3
+#define PRODUCT_COUNT 4
+#define FIRMWARE_MAX_SIZE 10000
 static const int SOMAGIC_FIRMWARE_LENGTH[PRODUCT_COUNT] = {
 	7502,
 	6634,
-	6634
+	6634,
+	7812
 };
 static const unsigned char SOMAGIC_FIRMWARE_MAGIC[PRODUCT_COUNT][4] = {
 	{'\x0c', '\x94', '\xce', '\x00'},
 	{'\x0c', '\x94', '\xcc', '\x00'},
-	{'\x0c', '\x94', '\xcc', '\x00'}
+	{'\x0c', '\x94', '\xcc', '\x00'},
+	{'\x0c', '\x94', '\xd9', '\x00'}
 };
 static const unsigned char SOMAGIC_FIRMWARE_CRC32[PRODUCT_COUNT][4] = {
 	{'\x34', '\x89', '\xf7', '\x7b'},
 	{'\x1f', '\xfe', '\xde', '\xbb'},
-	{'\x60', '\x1d', '\x37', '\x5f'}
+	{'\x60', '\x1d', '\x37', '\x5f'},
+	{'\x58', '\xc6', '\xcf', '\x55'}
 };
 
 static void version()
@@ -108,7 +113,7 @@ int main(int argc, char **argv)
 	unsigned char last4[4] = {'\0', '\0', '\0', '\0'};
 	int firmware_found = 0;
 	long pos;
-	char firmware[SOMAGIC_FIRMWARE_LENGTH[0]];
+	char firmware[FIRMWARE_MAX_SIZE];
 	unsigned char digest[4];
 	FILE *outfile;
 	int i;

@@ -39,3 +39,47 @@ debuild -us -uc
 To clean debian directory
 -------------------------
 fakeroot debian/rules clean
+
+
+Developer tools
+---------------
+
+`somagic-extract-firmware` only extracts firmwares that are known to work for
+end-users.  Developers can use `extractor` program to try to extract firmwares
+that are not supported yet.
+
+Example of use:
+
+   ./extractor SmiUsbGrabber3C.sys
+
+   Loading file `SmiUsbGrabber3C.sys` (827952 bytes)
+   Found firmware at offset 0x11f20 (7812 bytes): somagic_firmware_11f20.bin
+     - magic   : d9 00 / 0c 03 
+     - checksum: 58 c6 cf 55
+   Found firmware at offset 0x13db0 (7812 bytes): somagic_firmware_13db0.bin
+     - magic   : d9 00 / 0c 03 
+     - checksum: 58 c6 cf 55
+   Found firmware at offset 0x15c40 (7812 bytes): somagic_firmware_15c40.bin
+     - magic   : d9 00 / 0c 03 
+     - checksum: 58 c6 cf 55
+   Found firmware at offset 0x17ad0 (7812 bytes): somagic_firmware_17ad0.bin
+     - magic   : d9 00 / 0c 03 
+     - checksum: 58 c6 cf 55
+
+* `magic` is probably some kind of version. Here it would be 0x0c94d900 (the
+  0x0c94 prefix is always the same). The second magic number (0x0c940c03) is
+  unused by `somagic-extract-firmware`.
+* `checksum` is a CRC32 computed from the extracted firmware.
+* the size of the firmware is given in bytes
+
+These 3 values are required to make `somagic-extract-firmware` support more
+firmwares.
+
+All the firmwares are extracted in "somagic_firmware_OFFSET.bin" files.
+
+Keep in mind that we don't fully understand .sys file format (firmwares are
+stored in the unstructured .data section of these PE files) so `extractor` may
+just fail.
+
+Also we don't know why the same firmware (as proved by the size/checksum) is
+stored 4 times in the .sys file as shown above.
