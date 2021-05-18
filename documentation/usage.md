@@ -103,3 +103,46 @@ video.avi
 # now, type ctrl-c to stop the encoding
 # you can then kill somagic-both
 ```
+
+###### PAL RTSP streaming using RTSP simpe server
+
+Deploy docker image with defaults according to instructios from https://github.com/aler9/rtsp-simple-server
+Use the following setup script.
+
+```
+sudo killall -9 somagic-both
+sudo killall -9 somagic-capture
+
+# init the somagic driver
+sudo somagic-init
+
+# recording
+rm -f  .video .audio
+mkfifo .video .audio 
+
+sudo somagic-both --pal 1>.video 2>.audio & pid=$!
+
+sleep 3
+
+ffmpeg \
+-re -f rawvideo -pix_fmt uyvy422 -r 25 -s:v 720x576 -i .video \
+-vf scale=1280:720 -rtsp_transport tcp -f rtsp rtsp://localhost:8554/vid &
+
+ffmpeg \
+-re -f s16le -sample_rate 24000 -ac 2 -i .audio \
+-vf scale=1280:720 -rtsp_transport tcp -f rtsp rtsp://localhost:8554/aud &
+
+sleep 3
+
+ffmpeg -loglevel verbose -i rtsp://localhost:8554/vid \
+-i rtsp://localhost:8554/aud \
+-acodec copy -vcodec copy \
+-map 0:0 -map 1:0 -rtsp_transport tcp -f rtsp rtsp://localhost:8554/live
+
+killall ffmpeg
+#
+# now, type ctrl-c to stop the encoding
+# you c then kill somagic-both
+sudo killall -9 somagic-both
+sudo killall -9 somagic-capture
+```
